@@ -1,25 +1,33 @@
-import React from 'react'
+'use server';
+import React, { useState } from 'react'
 import { useQuery} from '@tanstack/react-query'
 import axios from 'axios'
 
 function Student() {
-    const fetchDetails=async()=>{
-        const response=await axios('http://localhost:3000/student');
+    const [page,setPage]= useState(1);
+
+    const fetchDetails=async(page)=>{
+
+        const url='https://jsonplaceholder.typicode.com/comments';
+        const url2='http://localhost:3000/student';
+        const response=await axios.get(`${url}?_limit=5&_page=${page}`);
         return response.data;
 
     }
     const {data,error,isLoading}=useQuery({
-        queryKey:['student'],
-        queryFn:fetchDetails
+        queryKey:['student',page],
+        queryFn:()=>fetchDetails(page),
+        keepPreviousData:true,
     }
     )
-    if(isLoading) return(< > <span className='loading'></span></>)
+    if(isLoading) return(< > <div className='loading mt-5'></div></>)
     if(error) return(<>Error:{error.message}</>)
+
   return (
 
 
     <div className="overflow-x-auto  max-w-6xl mx-auto">
-    <table className="table">
+    <table className="table my-5">
         {/* head */}
         <thead>
         <tr>
@@ -31,7 +39,7 @@ function Student() {
         </thead>
         <tbody>
 
-        {/* row 1 */}
+        {/* row  */}
         {data && data.map(student=>{
 
 return (
@@ -44,6 +52,10 @@ return (
             })}
         </tbody>
     </table>
+    <div className='flex justify-end'>
+       <button class="btn btn-outline btn-sm  me-2" onClick={()=>setPage((currentPage)=>currentPage-1)} disabled={page===1}>Prev</button>
+       <button class="btn btn-outline btn-sm" onClick={()=>setPage((currentPage)=>currentPage+1)} disabled={page===5}>Next</button>
+    </div>
     </div>
 
 
