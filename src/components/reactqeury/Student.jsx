@@ -1,16 +1,16 @@
-'use server';
+
 import React, { useState } from 'react'
 import { useQuery} from '@tanstack/react-query'
 import axios from 'axios'
 
 function Student() {
     const [page,setPage]= useState(1);
-
+    const totaPage=(4/4);
     const fetchDetails=async(page)=>{
 
         const url='https://jsonplaceholder.typicode.com/comments';
         const url2='http://localhost:3000/student';
-        const response=await axios.get(`${url}?_limit=5&_page=${page}`);
+        const response=await axios.get(`${url2}?_limit=5&_page=${page}`);
         return response.data;
 
     }
@@ -26,7 +26,8 @@ function Student() {
   return (
 
 
-    <div className="overflow-x-auto  max-w-6xl mx-auto">
+    <div className="overflow-x-auto  max-w-6xl mx-auto p-5">
+
     <table className="table my-5">
         {/* head */}
         <thead>
@@ -44,7 +45,7 @@ function Student() {
 
 return (
         <tr key={student.id}>
-            <th>{student.id}</th>
+            <td>{student.id}</td>
             <td>{student.name}</td>
             <td>{student.email}</td>
             <td>{student.body}</td>
@@ -54,7 +55,7 @@ return (
     </table>
     <div className='flex justify-end'>
        <button class="btn btn-outline btn-sm  me-2" onClick={()=>setPage((currentPage)=>currentPage-1)} disabled={page===1}>Prev</button>
-       <button class="btn btn-outline btn-sm" onClick={()=>setPage((currentPage)=>currentPage+1)} disabled={page===5}>Next</button>
+       <button class="btn btn-outline btn-sm" onClick={()=>setPage((currentPage)=>currentPage+1)} disabled={page===totaPage}>Next</button>
     </div>
     </div>
 
