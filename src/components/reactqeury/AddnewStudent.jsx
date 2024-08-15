@@ -25,18 +25,18 @@ function AddnewStudent() {
     return (
         <>
 
-<div className='max-w-md mx-auto grid grid-cols-2 gap-3 gap-y-5 bg-base-300 p-5 rounded-md'>
+<div className='overflow-x-auto  max-w-6xl   mx-auto grid grid-cols-2 gap-3 gap-y-5 bg-base-300 p-5 rounded-md'>
 
 
-<input type="text" placeholder="name" className="input input-bordered w-full max-w-xs" value={newStudent.name}
+<input type="text" placeholder="name" className="input input-bordered w-full " value={newStudent.name}
 
 onChange={(e)=>{setNewStudent({...newStudent,name:e.target.value})}}
 />
-<input type="email" placeholder="email" className="input input-bordered w-full max-w-xs" value={newStudent.email}
+<input type="email" placeholder="email" className="input input-bordered w-full" value={newStudent.email}
 
 onChange={(e)=>{setNewStudent({...newStudent,email:e.target.value})}}
 />
-<input type="text" placeholder="body" className="input input-bordered w-full max-w-xs" value={newStudent.body}
+<input type="text" placeholder="body" className="input input-bordered w-full " value={newStudent.body}
 
 onChange={(e)=>{setNewStudent({...newStudent,body:e.target.value})}}
 />

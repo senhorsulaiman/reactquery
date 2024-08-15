@@ -9,10 +9,10 @@ function App() {
   return (
     <div className="App">
       <div className=''>
-
+        <h2 className='my-5 font-bold '>React Query</h2>
         <AddnewStudent/>
-
         <Student/>
+        <h2 className='my-5 font-bold'>React Table</h2>
         <ReactTable/>
 
         </div>
