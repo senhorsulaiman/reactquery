@@ -26,18 +26,21 @@ header:"first name",
 
                 accessorKey:"last_name",
                 header:"last name",
+                enableSorting:false,
 
                             },
                             {
 
                                 accessorKey:"email",
                                 header:"email",
+                                enableSorting:false,
 
                                             },
                                             {
 
                                                 accessorKey:"gender",
                                                 header:"gender",
+                                                enableSorting:false,
 
                                                             }
 
