@@ -1,14 +1,17 @@
 import React, { useMemo, useState } from 'react'
 import MOCK_DATA from '../../MOCK_DATA.json'
 import { AiOutlineSortAscending } from "react-icons/ai";
+import { useQuery} from '@tanstack/react-query'
 import { AiOutlineSortDescending } from "react-icons/ai";
-import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable,getSortedRowModel } from '@tanstack/react-table';
+import { CiSearch } from "react-icons/ci";
+import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable,getSortedRowModel, getFilteredRowModel } from '@tanstack/react-table';
 const StudentList = () => {
     const  [ pagination,setPagination ]=useState({
         pageIndex:0,
         pageSize:10,
     });
     const [sorting, setSorting] = useState([]);
+    const [filtering, setFiltering,] = useState([]);
     // {"id":1,"first_name":"Elise","last_name":"Haselhurst","email":"ehaselhurst0@nhs.uk","gender":"Female"}
 
     const data=useMemo(()=>MOCK_DATA,[]);
@@ -16,11 +19,14 @@ const StudentList = () => {
 
 accessorKey:"id",
 header:"ID",
+enableColumnFilters: false,
 
     },{
 
 accessorKey:"first_name",
 header:"first name",
+
+
 
             },{
 
@@ -28,12 +34,16 @@ header:"first name",
                 header:"last name",
                 enableSorting:false,
 
+
+
                             },
                             {
 
                                 accessorKey:"email",
                                 header:"email",
                                 enableSorting:false,
+                                enableColumnFilters: false,
+
 
                                             },
                                             {
@@ -41,6 +51,8 @@ header:"first name",
                                                 accessorKey:"gender",
                                                 header:"gender",
                                                 enableSorting:false,
+                                                enableColumnFilters: false,
+
 
                                                             }
 
@@ -52,15 +64,28 @@ header:"first name",
         getCoreRowModel:getCoreRowModel(),
          getSortedRowModel: getSortedRowModel(), //not needed for manual sorting
         getPaginationRowModel:getPaginationRowModel(),
-
-        state:{pagination,sorting},
+      //getFilteredRowModel:getFilteredRowModel(),
+        state:{pagination,sorting,globalFilter:filtering},
         onPaginationChange:setPagination,
         pageCount:Math.ceil(data.length / pagination.pageSize),
-        onSortingChange:setSorting
+        onSortingChange:setSorting,
+        onGlobalFilterChange:setFiltering,
 
     })
+
+
   return (
     <div className='overflow-x-auto  max-w-6xl mx-auto p-5'>
+        <div className='relative lg:w-1/3'>
+
+        <CiSearch className='absolute top-[50%]  translate-y-[-50%] left-2 text-slate-600 text-[18px] size-5'/>
+        <input
+          type="text" value={filtering}
+          onChange={(e)=>setFiltering(e.target.value)} placeholder='Search... '
+          className="shadow-xs  w-full   rounded-lg border border-stroke bg-white p-1 text-[18px] font-medium text-gray-5 outline-none  dark:border-dark-3 dark:bg-white/5 pl-8"
+        />
+        </div>
+
       <table className="table my-5">
         {/* head */}
         <thead>

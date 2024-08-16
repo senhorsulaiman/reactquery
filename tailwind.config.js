@@ -8,6 +8,6 @@ module.exports = {
   },
   plugins: [
     require('daisyui'),
-    require("tailgrids/plugin"),
+    // require("tailgrids/plugin"),
   ],
 }
